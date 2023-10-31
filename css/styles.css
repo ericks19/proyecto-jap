@@ -229,3 +229,9 @@ a.custom-card:hover {
   width: 150px;
   margin-right: 8px;
 }
+
+/* a partir de este punto estilos login.html */
+
+button > img {
+  max-width: 20px;
+}
