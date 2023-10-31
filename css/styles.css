@@ -188,3 +188,44 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+/* a partir de este punto empeze a poner estilos para la lista de productos (por ahora autos) */
+
+.pb-5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pb-5 #container-list {
+  background-color: #FAF7F6;
+  width: 60%;
+}
+
+.car-card {
+  padding: 10px;
+  min-height: 120px;
+  border: 1px solid #ECECEC;
+  border-radius: 2%;
+  transition: 0.8s;
+  font-size: 1rem;
+}
+
+.car-card:hover{
+  cursor: pointer;
+  background-color: #0087F7;
+}
+
+.car-card p + p {
+  font-size: 0.82rem;
+}
+
+.car-card p span {
+  float: right;
+  font-size: 0.67rem;
+}
+
+.car-card img{
+  float: left;
+  width: 150px;
+  margin-right: 8px;
+}
