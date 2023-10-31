@@ -2,6 +2,15 @@ const URL = "https://japceibal.github.io/emercado-api/cats_products/101.json"
 
 const productList = document.getElementById("container-list")
 
+function isLoggedOrNot(){
+  const isLogged = sessionStorage.getItem("nombre")
+  if (!isLogged){
+    window.location.href = "login.html"
+  }
+}
+
+isLoggedOrNot()
+
 function autos(listaDeAutos){
   for(let auto of listaDeAutos){
     let divProductContainer = document.createElement("div")

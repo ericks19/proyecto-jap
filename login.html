@@ -1,100 +1,128 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>eMercado - Todo lo que busques está aquí</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: rgb(248, 249, 250);
-    }
-  </style>
-</head>
-<body class="bg-info d-flex flex-column justify-content-center align-items-center vh-100">
-  <main class="mt-3 mb-5">
-    <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
-      <div class="d-flex justify-content-center">
-        <img class="d-flex justify-content-center"
-          src="/assets/logo-login.png"
-          alt="login-icon"
-          style="height: 7rem"
-        />
-      </div>
-      <h3 class="text-center fs-1 fw-bold">Login</h3>
-      <div class="input-group mt-4">
-        <div class="input-group-text bg-info">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>eMercado - Todo lo que busques está aquí</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
+      rel="stylesheet"
+    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: rgb(248, 249, 250);
+      }
+    </style>
+  </head>
+  <body class="bg-info">
+    <main class="d-flex flex-column justify-content-center align-items-center vh-100">
+      <h2 class="mb-4">Bienvenido por favor inicia sesion para continuar</h2>
+      <div
+        class="bg-white p-5 rounded-5 text-secondary shadow"
+        style="width: 25rem"
+      >
+        <div class="d-flex justify-content-center">
           <img
-            src="/assets/descarga.png"
-            alt="username-icon"
-            style="height: 1.4rem"
+            class="d-flex justify-content-center"
+            src="/assets/logo-login.png"
+            alt="login-icon"
+            style="height: 7rem"
           />
         </div>
-        <input
-          class="form-control bg-light"
-          type="text"
-          placeholder="Username"
-        />
-      </div>
-      <div class="input-group mt-1">
-        <div class="input-group-text bg-info">
-          <img
-            src="/assets/candado-password.jpeg"
-            alt="password-icon"
-            style="height: 1.4rem;"
-          />
-        </div>
-        <input
-          class="form-control bg-light"
-          type="password"
-          placeholder="Password"
-        />
-      </div>
-      <div class="d-flex justify-content-around mt-1">
-        <div class="d-flex align-items-center gap-1">
-          <input class="form-check-input" type="checkbox" />
-          <div class="pt-1" style="font-size: 0.9rem">Remember me</div>
-        </div>
-        <div class="pt-1">
-          <a
-            href="#"
-            class="text-decoration-none text-info fw-semibold fst-italic"
-            style="font-size: 0.9rem"
-            >Forgot your password?</a
+        <form action="" id="loggin-form">
+          <h3 class="text-center fs-1 fw-bold">Login</h3>
+          <div class="input-group mt-4">
+            <div class="input-group-text bg-info">
+              <img
+                src="/assets/descarga.png"
+                alt="username-icon"
+                style="height: 1.4rem"
+              />
+            </div>
+            <input
+              id="input-username"
+              class="form-control bg-light"
+              type="text"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="input-group mt-1">
+            <div class="input-group-text bg-info">
+              <img
+                src="/assets/candado-password.jpeg"
+                alt="password-icon"
+                style="height: 1.4rem"
+              />
+            </div>
+            <input
+              id="input-password"
+              class="form-control bg-light"
+              type="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div class="d-flex justify-content-around mt-1">
+            <div class="d-flex align-items-center gap-1">
+              <input id="checkbox" class="form-check-input" type="checkbox" required />
+              <label class="pt-1" style="font-size: 0.9rem" for="checkbox">Remember me</label>
+            </div>
+            <div class="pt-1">
+              <a
+                href="#"
+                class="text-decoration-none text-info fw-semibold fst-italic"
+                style="font-size: 0.9rem"
+                >Forgot your password?</a
+              >
+            </div>
+          </div>
+          <button
+            id="button-loggin"
+            class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm"
+          >
+            Login
+          </button>
+        </form>
+        <div class="d-flex gap-1 justify-content-center mt-1">
+          <p>Don't have an account?</p>
+          <a href="#" class="text-decoration-none text-info fw-semibold"
+            >Register</a
           >
         </div>
-      </div>
-      <button class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm">
-        Login
-      </button>
-      <div class="d-flex gap-1 justify-content-center mt-1">
-        <p>Don't have an account?</p>
-        <a href="#" class="text-decoration-none text-info fw-semibold"
-          >Register</a
-        >
-      </div>
-      <div class="p-3">
-        <div class="border-bottom text-center" style="height: 0.9rem">
-          <span class="bg-white px-3">or</span>
+        <div class="p-3">
+          <div class="border-bottom text-center" style="height: 0.9rem">
+            <span class="bg-white px-3">or</span>
+          </div>
         </div>
+        <button class="btn btn-primary w-100">
+          <img
+            src="assets/google.png"
+            alt="Continua con google"
+            class="mr-2 img-icon"
+          />
+          Continua con google
+        </button>
       </div>
-      <button class="btn btn-primary w-100">
-        <img src="assets/google.png" alt="Continua con google" class="mr-2 img-icon">
-        Continua con google
-      </button>
-    </div>
-  </main>
-  <footer class="text-muted py-2 mt-5 fixed-bottom">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
-    </div>
-  </footer>
-  <script src="js/login.js"></script>
-</body>
-
+    </main>
+    <footer class="text-muted py-2 mt-5 fixed-bottom">
+      <div class="container">
+        <p class="float-end">
+          <a href="#">Volver arriba</a>
+        </p>
+        <p>
+          Este sitio forma parte de
+          <a href="https://jovenesaprogramar.edu.uy/" target="_blank"
+            >Jovenes a Programar</a
+          >
+        </p>
+      </div>
+    </footer>
+    <script src="js/login.js"></script>
+  </body>
 </html>

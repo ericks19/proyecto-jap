@@ -6,6 +6,15 @@ let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
+function isLoggedOrNot(){
+    const isLogged = sessionStorage.getItem("nombre")
+    if (!isLogged){
+      window.location.href = "login.html"
+    }
+  }
+  
+  isLoggedOrNot()
+  
 function sortCategories(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)
