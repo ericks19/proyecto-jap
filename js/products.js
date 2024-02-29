@@ -5,10 +5,12 @@ const containerList = document.getElementById("container-list");
 const inputMaximo = document.getElementById("filter-maximo")
 const inputMinimo = document.getElementById("filter-minimo")
 const filterButton = document.getElementById("filter-button")
+const selectSorter = document.getElementById("select-sorter")
+let fetchData; // Variable global para almacenar los datos de la lista de productos
+let productList;
 
-function filterList() {
-  const productList = fetchData.products
-  const filteredList = productList.filter((product) => {
+function filterList(list) {
+  const filteredList = list.filter((product) => {
     if(!inputMaximo.value){
       return product.cost >= inputMinimo.value
     }
@@ -18,11 +20,31 @@ function filterList() {
     return product.cost >= inputMinimo.value && product.cost <= inputMaximo.value
   })
   makeList(filteredList)
+  return filteredList
+}
+filterButton.addEventListener("click", () => filterList(fetchData.products))
+
+function sortList(list, value){
+  let newList = [...list]
+  console.log("lista", list)
+  if(value === "menor-precio"){
+    newList = list.sort((a,b) => a.cost - b.cost)
+    makeList(newList)
+  }
+  else if(value === "mayor-precio"){
+    newList = list.sort((a,b) => b.cost - a.cost)
+    makeList(newList)
+  }
+  else if(value === "relevancia"){
+    newList = list.sort((a,b) => b.soldCount - a.soldCount)
+    makeList(newList)
+  }
 }
 
-filterButton.addEventListener("click", filterList)
-
-let fetchData; // Variable global para almacenar los datos de la lista de productos
+selectSorter.addEventListener("input", () => {
+  console.log(selectSorter.value)
+  sortList(filterList(fetchData.products),selectSorter.value)
+})
 
 function isLoggedOrNot(){
     const isLogged = sessionStorage.getItem("nombre");

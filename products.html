@@ -40,9 +40,15 @@
     <h1>Productos</h1>
     <p id="category-paragraph"></p>
     <div>
-      <input id="filter-minimo" type="number" placeholder="minimo" step="100" >
-      <input id="filter-maximo" type="number" placeholder="maximo" step="100" >
+      <input id="filter-minimo" type="number" placeholder="Precio minimo" step="100" >
+      <input id="filter-maximo" type="number" placeholder="Precio Maximo" step="100" >
       <button id="filter-button">Filtrar</button>
+      <select id="select-sorter" name="select">
+        <option value="">Ordenar lista</option>
+        <option value="menor-precio">Menor precio</option>
+        <option value="mayor-precio">Mayor precio</option>
+        <option value="relevancia">Relevancia</option>
+      </select>
     </div>
     <div id="container-list">
     </div>
