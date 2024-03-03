@@ -2,12 +2,33 @@ const currentCatId = localStorage.getItem("catID");
 const URL = `https://japceibal.github.io/emercado-api/cats_products/${currentCatId}.json`;
 
 const containerList = document.getElementById("container-list");
-const inputMaximo = document.getElementById("filter-maximo")
-const inputMinimo = document.getElementById("filter-minimo")
-const filterButton = document.getElementById("filter-button")
-const selectSorter = document.getElementById("select-sorter")
+const inputMaximo = document.getElementById("filter-maximo");
+const inputMinimo = document.getElementById("filter-minimo");
+const filterButton = document.getElementById("filter-button");
+const selectSorter = document.getElementById("select-sorter");
+const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById("search-button");
 let fetchData; // Variable global para almacenar los datos de la lista de productos
 let productList;
+
+selectSorter.addEventListener("input", () => {
+  console.log(selectSorter.value)
+  console.log(searchInput.value)
+  sortList(filterList(fetchData.products),selectSorter.value)
+})
+
+searchButton.addEventListener("click", () => searchInProducts(filterList(fetchData.products), searchInput.value))
+
+function searchInProducts(list, value){
+  value.toLowerCase()
+  const searchedList = list.filter((product) => {
+   return product.description.toLowerCase().includes(value) || product.name.toLowerCase().includes(value)
+  })
+  makeList(filterList(searchedList))
+  console.log(value)
+  console.log(list)
+  console.log(searchedList)
+}
 
 function filterList(list) {
   const filteredList = list.filter((product) => {
@@ -41,11 +62,6 @@ function sortList(list, value){
   }
 }
 
-selectSorter.addEventListener("input", () => {
-  console.log(selectSorter.value)
-  sortList(filterList(fetchData.products),selectSorter.value)
-})
-
 function isLoggedOrNot(){
     const isLogged = sessionStorage.getItem("nombre");
     if (!isLogged){
@@ -58,10 +74,18 @@ function isLoggedOrNot(){
 }
 isLoggedOrNot();
 
+function redirectToProductInfo(){
+  
+}
+
 function makeList(productsList){
     containerList.innerHTML = ''; // Limpiar la lista antes de agregar nuevos productos
     for(let product of productsList){
         let divProductContainer = document.createElement("div");
+        divProductContainer.addEventListener("click", () => {
+          localStorage.setItem("productId", product.id)
+          window.location.href = "product-info.html"
+        })
         divProductContainer.classList.add("car-card");
         containerList.appendChild(divProductContainer);
         divProductContainer.innerHTML += `<img src="${product.image}" alt= "imagen del producto" >`;
@@ -90,5 +114,3 @@ async function fetchingData(url) {
 
 // Llama a la función para cargar los productos
 fetchingData(URL);
-
-
