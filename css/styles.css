@@ -5,6 +5,15 @@
   font-family: 'Verdana', serif !important;
 }
 
+body {
+  transition: background-color 0.2s;
+}
+
+.dark-mode {
+  background-color: rgb(17, 16, 16);
+  color: #ECECEC;
+}
+
 .jumbotron .display-4 {
   font-weight: bold;
 }

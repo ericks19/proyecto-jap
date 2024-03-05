@@ -25,9 +25,6 @@ function searchInProducts(list, value){
    return product.description.toLowerCase().includes(value) || product.name.toLowerCase().includes(value)
   })
   makeList(filterList(searchedList))
-  console.log(value)
-  console.log(list)
-  console.log(searchedList)
 }
 
 function filterList(list) {
@@ -74,18 +71,16 @@ function isLoggedOrNot(){
 }
 isLoggedOrNot();
 
-function redirectToProductInfo(){
-  
+function redirectToProductInfo(productId){
+  localStorage.setItem("productId", productId)
+  window.location.href = "product-info.html"
 }
 
 function makeList(productsList){
     containerList.innerHTML = ''; // Limpiar la lista antes de agregar nuevos productos
     for(let product of productsList){
         let divProductContainer = document.createElement("div");
-        divProductContainer.addEventListener("click", () => {
-          localStorage.setItem("productId", product.id)
-          window.location.href = "product-info.html"
-        })
+        divProductContainer.addEventListener("click", () => redirectToProductInfo(product.id))
         divProductContainer.classList.add("car-card");
         containerList.appendChild(divProductContainer);
         divProductContainer.innerHTML += `<img src="${product.image}" alt= "imagen del producto" >`;

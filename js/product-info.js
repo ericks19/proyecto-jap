@@ -6,16 +6,56 @@ const divCommentsContainer = document.createElement("div");
 const newTextComment = document.getElementById("new-comment");
 const sendCommentButton =document.getElementById("send-comment");
 const commentRating = document.getElementById("comment-rating");
-
+const relatedProductsDiv = document.getElementById("related-products")
+let fetchedData;
 sendCommentButton.addEventListener("click",AddingNewComment)
 
-fetch(URLProduct)
-.then((response) => response.json())
-.then((data) => showProduct2(data))
+document.addEventListener("DOMContentLoaded", function() {
+  const modo = localStorage.getItem("modo")
+  if(modo === "oscuro"){
+    document.body.classList.add("dark-mode")
+    console.log("oscuro")
+  }else{
+    document.body.classList.remove("dark-mode")
+    console.log("claro")
+  }
+});
 
-fetch(PRODUCT_COMMENTS_URL)
-.then((response) => response.json())
-.then((data) => showComments(data))
+async function showRelatedProducts(list){
+  for(let relProduct of list){
+    const img = document.createElement("img")
+    img.setAttribute("src", relProduct.image);
+    img.setAttribute("alt", "auto");
+    const productName = document.createElement("p")
+    productName.innerText = relProduct.name
+    const relatedProductCard = document.createElement("div")
+    relatedProductCard.appendChild(img)
+    relatedProductCard.appendChild(productName)
+    relatedProductCard.addEventListener("click", () => {
+      console.log(relProduct.id)
+      localStorage.setItem("productId", relProduct.id)
+      location.reload()
+    })
+    console.log("relacioneeee", relatedProductCard)
+    relatedProductsDiv.appendChild(relatedProductCard)
+  }
+  console.log(list)
+}
+
+async function fetchingData(url) {
+  try {
+      const response = await fetch(url);
+      fetchedData = await response.json();
+      showProduct2(fetchedData)
+      fetch(PRODUCT_COMMENTS_URL)
+      .then((response) => response.json())
+      .then((data) => showComments(data))
+      .then(showRelatedProducts(fetchedData.relatedProducts))
+  } catch (error) {
+      console.error('Error al cargar los productos:', error);
+  }
+}
+fetchingData(URLProduct);
 
 function normalDate(){
   const date = new Date();
@@ -24,7 +64,6 @@ function normalDate(){
       .padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
       return normalDate
 }
-
 function AddingNewComment(e){
   e.preventDefault()
   const divNewCommentContainer = document.createElement("div");
@@ -50,9 +89,10 @@ function showComments(list){
   }
 }
 function showProduct2(list){
+  console.log(list)
   const productContainer = `
                             <p>${list.name}</p>
-                            ${renderizarImagenes(list)}
+                            ${showCarousel(list)}
                             <p>${list.currency} ${list.cost}</p>
                             <p>${list.description}</p>
                             <p>${list.category}</p>
@@ -60,6 +100,31 @@ function showProduct2(list){
                           `
   containerDiv.innerHTML += productContainer
 }
+function showCarousel(list){
+  let carousel = `
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  </div>
+  <div id ="container-product-images" class="carousel-inner">
+  ${showCarouselImages(list)}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+  </div>
+  `
+  return carousel
+}
+
 function showProduct(list){
   const name = `<p>${list.name}</p>`
   const descriptionProducto = document.createElement("p")
@@ -74,14 +139,50 @@ function renderizarImagenes(list){
   }
   return images.outerHTML
 }
+// devuelve texto
+
+function showCarouselImages(list) {
+  let carouselItems = '';
+  for (let i = 0; i < list.images.length; i++) {
+    const img = list.images[i];
+    const isActive = i === 0 ? 'active' : ''; // Marca el primer elemento como activo
+    carouselItems += `
+      <div class="carousel-item ${isActive}">
+        <img src="${img}" class="d-block w-100" alt="Imagen ${list.name}">
+      </div>
+    `;
+  }
+  return carouselItems
+}
+
+
+
 function isLoggedOrNot(){
-  const isLogged = sessionStorage.getItem("nombre")
-  if (!isLogged){
+  const loggedName = sessionStorage.getItem("nombre")
+  if (!loggedName){
     window.location.href = "login.html"
   }else {
-      const itemNavNameLogged = document.getElementById("item-nav-name-logged")
-      itemNavNameLogged.classList.add("text-white", "mt-2")
-      itemNavNameLogged.innerHTML = isLogged
+      const itemNavNameLogged = document.getElementById("navbarDarkDropdownMenuLink");
+      itemNavNameLogged.innerText = loggedName;
+      const miCarrito = document.getElementById("mi-carrito");
+      const miPerfil = document.getElementById("mi-perfil");
+      const cerrarSesion = document.getElementById("cerrar-sesion");
+      miCarrito.addEventListener("click", () => window.location.href = "cart.html");
+      miPerfil.addEventListener("click", () => window.location.href = "my-profile.html");
+      cerrarSesion.addEventListener("click", () => {
+        sessionStorage.removeItem("nombre");
+        window.location.href = "login.html"
+      })
+      const btnSelectMode = document.getElementById("modo-dia-o-noche")
+        btnSelectMode.addEventListener("click", () => {
+          if(!document.body.classList.contains("dark-mode")){
+            document.body.classList.add("dark-mode")
+            localStorage.setItem("modo","oscuro")
+          }else{
+            document.body.classList.remove("dark-mode")
+            localStorage.setItem("modo","claro")
+          }
+        })
   }
 }
 isLoggedOrNot()
