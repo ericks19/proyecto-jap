@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +9,6 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
@@ -36,11 +34,107 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Costo</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-products-cart">
+        </tbody>
+      </table>
+    </div>
+    <form>
+      <div id="div-tipo-de-envio">
+        <fieldset>
+          <legend>Tipo de Envío:</legend>
+          <div>
+            <input type="radio" id="envio-prioritario" name="tipoEnvio" value= "15">
+            <label for="envio-prioritario">Premium 2 a 5 dias (15%)</label>
+          </div>
+          <div>
+            <input type="radio" id="envio-express" name="tipoEnvio" value="7">
+            <label for="envio-express">Express 5 a 8 dias (7%)</label>
+          </div>
+          <div>
+            <input type="radio" id="envio-estandar" name="tipoEnvio" value="5">
+            <label for="envio-estandar">Standard 12 a 15 dias (5%)</label>
+          </div>
+        </fieldset>
+      </div>
+      <div id="info-de-envio">
+        <legend>Direccion de envio</legend>
+        <div>
+          <label for="calle">Calle</label>
+          <input type="text" id="calle" name="calle">
+        </div>
+        <div>
+          <label for="numero">Número</label>
+          <input type="text" id="numero" name="numero">
+        </div>
+        <div>
+          <label for="esquina">Esquina</label>
+          <input type="text" id="esquina" name="esquina">
+        </div>
+      </div>
+    </form>
+    <div>
+      <legend>Costos</legend>
+      <p><span>Subtotal</span><span id="sub-total-carrito"></span></p>
+      <p><span>Costo de envio</span><span id="costo-de-envio"></span></p>
+      <p><span>Total($)</span><span id="total-carrito"></span></p>
+    </div>
+    <div id="div-metodo-de-pago">
+      <legend>Forma de Pago</legend>
+      <p id="metodo-de-pago">No ha seleccionado</p>
+      <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">seleccionar</a>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Forma de pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <input type="radio" id="tarjeta-credito" name="formaDePago" value= "Tarjeta de credito">
+          <label for="tarjeta-credito">Tarjeta de credito</label>
+        </div>
+        <div>
+          <label for="numero-tarjeta">Numero de Tarjeta</label>
+          <input type="text" id="numero-tarjeta" name="numeroTarjeta">
+        </div>
+        <div>
+          <label for="codigo-seguridad">Codigo de seguridad</label>
+          <input type="text" id="codigo-seguridad" name="codigoSeguridad">
+        </div>
+        <div>
+          <label for="vencimiento">Vencimiento (MM/AA)</label>
+          <input type="text" id="vencimiento" name="vencimiento">
+        </div>
+        <div>
+          <input type="radio" id="transferencia-bancaria" name="formaDePago" value= "Transferencia Bancaria">
+          <label for="transferencia-bancaria">Transferencia bancaria</label>
+        </div>
+        <div>
+          <label for="numero-de-cuenta">Numero de cuenta</label>
+          <input type="text" id="numero-de-cuenta" name="numeroDeCuenta">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
+  </div>
+</div>
+<button id="finalizar-compra">Comprar</button>
   </main>
   <footer class="text-muted">
     <div class="container">
@@ -62,5 +156,4 @@
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
 </body>
-
 </html>

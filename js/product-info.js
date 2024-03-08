@@ -14,10 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
   const modo = localStorage.getItem("modo")
   if(modo === "oscuro"){
     document.body.classList.add("dark-mode")
-    console.log("oscuro")
   }else{
     document.body.classList.remove("dark-mode")
-    console.log("claro")
   }
 });
 
@@ -32,14 +30,11 @@ async function showRelatedProducts(list){
     relatedProductCard.appendChild(img)
     relatedProductCard.appendChild(productName)
     relatedProductCard.addEventListener("click", () => {
-      console.log(relProduct.id)
       localStorage.setItem("productId", relProduct.id)
       location.reload()
     })
-    console.log("relacioneeee", relatedProductCard)
     relatedProductsDiv.appendChild(relatedProductCard)
   }
-  console.log(list)
 }
 
 async function fetchingData(url) {
@@ -47,6 +42,7 @@ async function fetchingData(url) {
       const response = await fetch(url);
       fetchedData = await response.json();
       showProduct2(fetchedData)
+      createBtnAddToCart(fetchedData)
       fetch(PRODUCT_COMMENTS_URL)
       .then((response) => response.json())
       .then((data) => showComments(data))
@@ -57,6 +53,38 @@ async function fetchingData(url) {
 }
 fetchingData(URLProduct);
 
+function makingCartList(){
+  let listItems = localStorage.getItem("cartList")
+  if(!listItems){
+    localStorage.setItem("cartList", JSON.stringify([]))
+  }
+}
+
+function addProductsToCart(product){
+  makingCartList()
+  let listItems = JSON.parse(localStorage.getItem("cartList"))
+  let existProduct = listItems.find((item) => {
+    return item.id === product.id
+  })
+  if(!existProduct){
+    listItems.push(product)
+    localStorage.setItem("cartList",JSON.stringify(listItems))
+    alert("el producto se agrego en su carrito, Sabpe")
+  }else{
+    alert("el producto ya se encuetra en su carrito")
+  }
+}
+
+function createBtnAddToCart(product){
+  const btnAddToCart = document.createElement("button")
+  btnAddToCart.textContent = "Agregar al carrito"
+  btnAddToCart.id = "btn-add-to-cart"
+  btnAddToCart.addEventListener("click", (e) => {
+    e.preventDefault()
+    addProductsToCart(product)
+  })
+  containerDiv.appendChild(btnAddToCart)
+}
 function normalDate(){
   const date = new Date();
     const normalDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate()
@@ -89,7 +117,7 @@ function showComments(list){
   }
 }
 function showProduct2(list){
-  console.log(list)
+  console.log("acaaa", list)
   const productContainer = `
                             <p>${list.name}</p>
                             ${showCarousel(list)}
@@ -154,8 +182,6 @@ function showCarouselImages(list) {
   }
   return carouselItems
 }
-
-
 
 function isLoggedOrNot(){
   const loggedName = sessionStorage.getItem("nombre")
