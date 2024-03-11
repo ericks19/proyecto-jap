@@ -51,10 +51,41 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <div class="container mt-5 px-5">
+      <form class="row d-flex justify-content-center">
+        <div class="px-5">
+          <legend class="px-5">Perfil</legend>
+        </div>
+        <div>
+          <img id="profileImage" src="/assets/descarga.png" width="100px" alt="">
+        </div>
+        <div class="col-5 mb-3 px-5">
+          <label for="primerNombre" class="form-label">Primer Nombre*</label>
+          <input type="text" class="form-control" id="primerNombre">
+        </div>
+        <div class="col-5 mb-3 px-5"">
+          <label for="segundoNombre" class="form-label">Segundo Nombre</label>
+          <input type="text" class="form-control" id="segundoNombre">
+        </div>
+        <div class="col-5 mb-3 px-5"">
+          <label for="primerApellido" class="form-label">Primer apellido*</label>
+          <input type="text" class="form-control" id="primerApellido">
+        </div>
+        <div class="col-5 mb-3 px-5"">
+          <label for="segundoApellido" class="form-label">Segundo apellido</label>
+          <input type="text" class="form-control" id="segundoApellido">
+        </div>
+        <div class="col-5 mb-3 px-5"">
+          <label for="InputEmail" class="form-label">E-mail</label>
+          <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+        </div>
+        <div class="col-5 mb-3 px-5"">
+          <label for="telefonoDeContacto" class="form-label">Telefono de contacto*</label>
+          <input type="number" class="form-control" id="telefonoDeContacto">
+        </div>
+        <input type="file" id="inputFile" accept="image/*" multiple="false">
+        <button id="guardarCambios" type="submit" class="col-4 btn btn-primary">Guardar Cambios</button>
+      </form>
     </div>
   </main>
   <footer class="text-muted">
