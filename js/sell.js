@@ -10,13 +10,31 @@ let PERCENTAGE_SYMBOL = '%';
 let MSG = "FUNCIONALIDAD NO IMPLEMENTADA";
 
 function isLoggedOrNot(){
-    const isLogged = sessionStorage.getItem("nombre")
-    if (!isLogged){
+    const loggedName = sessionStorage.getItem("nombre")
+    if (!loggedName){
       window.location.href = "login.html"
     }else {
-        const itemNavNameLogged = document.getElementById("item-nav-name-logged")
-        itemNavNameLogged.classList.add("text-white", "mt-2")
-        itemNavNameLogged.innerHTML = isLogged
+        const itemNavNameLogged = document.getElementById("navbarDarkDropdownMenuLink");
+        itemNavNameLogged.innerText = loggedName;
+        const miCarrito = document.getElementById("mi-carrito");
+        const miPerfil = document.getElementById("mi-perfil");
+        const cerrarSesion = document.getElementById("cerrar-sesion");
+        miCarrito.addEventListener("click", () => window.location.href = "cart.html");
+        miPerfil.addEventListener("click", () => window.location.href = "my-profile.html");
+        cerrarSesion.addEventListener("click", () => {
+          sessionStorage.removeItem("nombre");
+          window.location.href = "login.html"
+        })
+        const btnSelectMode = document.getElementById("modo-dia-o-noche")
+          btnSelectMode.addEventListener("click", () => {
+            if(!document.body.classList.contains("dark-mode")){
+              document.body.classList.add("dark-mode")
+              localStorage.setItem("modo","oscuro")
+            }else{
+              document.body.classList.remove("dark-mode")
+              localStorage.setItem("modo","claro")
+            }
+          })
     }
   }
   isLoggedOrNot()
@@ -26,11 +44,9 @@ function updateTotalCosts(){
     let unitProductCostHTML = document.getElementById("productCostText");
     let comissionCostHTML = document.getElementById("comissionText");
     let totalCostHTML = document.getElementById("totalCostText");
-
     let unitCostToShow = MONEY_SYMBOL + productCost;
     let comissionToShow = Math.round((comissionPercentage * 100)) + PERCENTAGE_SYMBOL;
     let totalCostToShow = MONEY_SYMBOL + ((Math.round(productCost * comissionPercentage * 100) / 100) + parseInt(productCost));
-
     unitProductCostHTML.innerHTML = unitCostToShow;
     comissionCostHTML.innerHTML = comissionToShow;
     totalCostHTML.innerHTML = totalCostToShow;
@@ -54,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         comissionPercentage = 0.13;
         updateTotalCosts();
     });
-    
+
     document.getElementById("premiumradio").addEventListener("change", function(){
         comissionPercentage = 0.07;
         updateTotalCosts();
@@ -69,22 +85,20 @@ document.addEventListener("DOMContentLoaded", function(e){
         if (this.value == DOLLAR_CURRENCY)
         {
             MONEY_SYMBOL = DOLLAR_SYMBOL;
-        } 
+        }
         else if (this.value == PESO_CURRENCY)
         {
             MONEY_SYMBOL = PESO_SYMBOL;
         }
-
         updateTotalCosts();
     });
-
 
     //Configuraciones para el elemento que sube archivos
     let dzoptions = {
         url:"/",
         autoQueue: false
     };
-    let myDropzone = new Dropzone("div#file-upload", dzoptions);    
+    let myDropzone = new Dropzone("div#file-upload", dzoptions);
 
 
     //Se obtiene el formulario de publicación de producto
@@ -94,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     //lanzado por el formulario cuando se seleccione 'Vender'.
     sellForm.addEventListener("submit", function(e){
 
-        e.preventDefault(); 
+        e.preventDefault();
         e.preventDefault();
 
         let productNameInput = document.getElementById("productName");
@@ -115,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             productNameInput.classList.add('is-invalid');
             infoMissing = true;
         }
-        
+
         //Consulto por la categoría del producto
         if (productCategory.value === "")
         {
@@ -129,16 +143,14 @@ document.addEventListener("DOMContentLoaded", function(e){
             productCost.classList.add('is-invalid');
             infoMissing = true;
         }
-        
+
         if(!infoMissing)
         {
             //Aquí ingresa si pasó los controles, irá a enviar
             //la solicitud para crear la publicación.
-
             getJSONData(PUBLISH_PRODUCT_URL).then(function(resultObj){
                 let msgToShowHTML = document.getElementById("resultSpan");
                 let msgToShow = "";
-    
                 //Si la publicación fue exitosa, devolverá mensaje de éxito,
                 //de lo contrario, devolverá mensaje de error.
                 //FUNCIONALIDAD NO IMPLEMENTADA
@@ -152,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function(e){
                     msgToShow = MSG;
                     document.getElementById("alertResult").classList.add('alert-primary');
                 }
-    
                 msgToShowHTML.innerHTML = msgToShow;
                 document.getElementById("alertResult").classList.add("show");
             });

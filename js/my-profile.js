@@ -11,13 +11,31 @@ const profileImage = document.getElementById('profileImage')
 inputEmail.value = email
 
 function isLoggedOrNot(){
-  const isLogged = sessionStorage.getItem("nombre")
-  if (!isLogged){
+  const loggedName = sessionStorage.getItem("nombre")
+  if (!loggedName){
     window.location.href = "login.html"
   }else {
-      const itemNavNameLogged = document.getElementById("item-nav-name-logged")
-      itemNavNameLogged.classList.add("text-white", "mt-2")
-      itemNavNameLogged.innerHTML = isLogged
+      const itemNavNameLogged = document.getElementById("navbarDarkDropdownMenuLink");
+      itemNavNameLogged.innerText = loggedName;
+      const miCarrito = document.getElementById("mi-carrito");
+      const miPerfil = document.getElementById("mi-perfil");
+      const cerrarSesion = document.getElementById("cerrar-sesion");
+      miCarrito.addEventListener("click", () => window.location.href = "cart.html");
+      miPerfil.addEventListener("click", () => window.location.href = "my-profile.html");
+      cerrarSesion.addEventListener("click", () => {
+        sessionStorage.removeItem("nombre");
+        window.location.href = "login.html"
+      })
+      const btnSelectMode = document.getElementById("modo-dia-o-noche")
+        btnSelectMode.addEventListener("click", () => {
+          if(!document.body.classList.contains("dark-mode")){
+            document.body.classList.add("dark-mode")
+            localStorage.setItem("modo","oscuro")
+          }else{
+            document.body.classList.remove("dark-mode")
+            localStorage.setItem("modo","claro")
+          }
+        })
   }
 }
 function updateProfileImg(){
