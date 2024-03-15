@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
@@ -47,22 +44,24 @@
   <main class="pb-5 container">
     <h1>Productos</h1>
     <p id="category-paragraph"></p>
-    <div>
-      <input id="filter-minimo" type="number" placeholder="Precio minimo" step="100" >
-      <input id="filter-maximo" type="number" placeholder="Precio Maximo" step="100" >
-      <button id="filter-button">Filtrar</button>
-      <select id="select-sorter" name="select">
-        <option value="">Ordenar lista</option>
+    <div id="inputs-container">
+      <div id="search-inpu-div" class="d-flex">
+        <input id="search-input" class="form-control" placeholder="Encuentra lo que buscas" type="search">
+        <button id="search-button" class="btn btn-primary">Buscar</button>
+      </div>
+      <select id="select-sorter" class="form-select" name="select">
+        <option value="">Ordenar por</option>
         <option value="menor-precio">Menor precio</option>
         <option value="mayor-precio">Mayor precio</option>
         <option value="relevancia">Relevancia</option>
       </select>
-      <div>
-        <input id="search-input" type="search">
-        <button id="search-button">Buscar</button>
+      <div id="probando-inputs-min-max" class="d-flex">
+        <input class="form-control" id="filter-minimo" type="number" placeholder="Precio minimo" step="100" >
+        <input class="form-control" id="filter-maximo" type="number" placeholder="Precio Maximo" step="100" >
+        <button id="filter-button" class="btn btn-primary">Filtrar</button>
       </div>
     </div>
-    <div id="container-list">
+    <div class="container" id="container-list">
     </div>
   </main>
   <footer class="text-muted">

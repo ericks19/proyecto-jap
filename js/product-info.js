@@ -2,13 +2,17 @@ const idProduct = localStorage.getItem("productId") || "";
 const URLProduct = `https://japceibal.github.io/emercado-api/products/${idProduct}.json`;
 const PRODUCT_COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${idProduct}.json`;
 const containerDiv = document.getElementById("product-container")
-const divCommentsContainer = document.createElement("div");
 const newTextComment = document.getElementById("new-comment");
 const sendCommentButton =document.getElementById("send-comment");
 const commentRating = document.getElementById("comment-rating");
 const relatedProductsDiv = document.getElementById("related-products")
+const stars = document.querySelectorAll(".fa-star")
 let fetchedData;
-sendCommentButton.addEventListener("click",AddingNewComment)
+let rating = 1
+sendCommentButton.addEventListener("click",AddingNewComment);
+
+fetchingData(URLProduct);
+starsMouseOver()
 
 document.addEventListener("DOMContentLoaded", function() {
   const modo = localStorage.getItem("modo")
@@ -18,17 +22,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.remove("dark-mode")
   }
 });
-
 async function showRelatedProducts(list){
   for(let relProduct of list){
     const img = document.createElement("img")
     img.setAttribute("src", relProduct.image);
-    img.setAttribute("alt", "auto");
+    img.setAttribute("alt", relProduct.name);
     const productName = document.createElement("p")
     productName.innerText = relProduct.name
     const relatedProductCard = document.createElement("div")
-    relatedProductCard.appendChild(img)
+    relatedProductCard.id = "relatedProductCard"
     relatedProductCard.appendChild(productName)
+    relatedProductCard.appendChild(img)
     relatedProductCard.addEventListener("click", () => {
       localStorage.setItem("productId", relProduct.id)
       location.reload()
@@ -36,12 +40,11 @@ async function showRelatedProducts(list){
     relatedProductsDiv.appendChild(relatedProductCard)
   }
 }
-
 async function fetchingData(url) {
   try {
       const response = await fetch(url);
       fetchedData = await response.json();
-      showProduct2(fetchedData)
+      showProduct(fetchedData)
       createBtnAddToCart(fetchedData)
       fetch(PRODUCT_COMMENTS_URL)
       .then((response) => response.json())
@@ -51,15 +54,12 @@ async function fetchingData(url) {
       console.error('Error al cargar los productos:', error);
   }
 }
-fetchingData(URLProduct);
-
 function makingCartList(){
   let listItems = localStorage.getItem("cartList")
   if(!listItems){
     localStorage.setItem("cartList", JSON.stringify([]))
   }
 }
-
 function addProductsToCart(product){
   makingCartList()
   let listItems = JSON.parse(localStorage.getItem("cartList"))
@@ -74,11 +74,12 @@ function addProductsToCart(product){
     alert("el producto ya se encuetra en su carrito")
   }
 }
-
 function createBtnAddToCart(product){
   const btnAddToCart = document.createElement("button")
   btnAddToCart.textContent = "Agregar al carrito"
   btnAddToCart.id = "btn-add-to-cart"
+  btnAddToCart.classList.add("btn");
+  btnAddToCart.classList.add("btn-success");
   btnAddToCart.addEventListener("click", (e) => {
     e.preventDefault()
     addProductsToCart(product)
@@ -95,36 +96,105 @@ function normalDate(){
 function AddingNewComment(e){
   e.preventDefault()
   const divNewCommentContainer = document.createElement("div");
+  divNewCommentContainer.classList.add("commentDiv")
   let newComment = `
-    <p>${sessionStorage.getItem("nombre")}</p>
-    <p>${normalDate()}</p>
-    <p>${commentRating.value}</p>
+    <div><p>${sessionStorage.getItem("nombre")}</p> <div>${fillStars(rating)}</div><span>${normalDate()}</span></div>
     <p>${newTextComment.value}</p>
     `
     divNewCommentContainer.innerHTML += newComment
-    containerDiv.appendChild(divNewCommentContainer)
+    divCommentsContainer.appendChild(divNewCommentContainer)
+    newTextComment.value = ""
 }
-function showComments(list){
-  for(let comm of list){
-    let comment = `
-    <p>${comm.user}</p>
-    <p>${comm.dateTime}</p>
-    <p>${comm.description}</p>
-    <p>${comm.score}</p>
-    `
-    divCommentsContainer.innerHTML += comment
-    containerDiv.appendChild(divCommentsContainer)
+function fillStars(number){
+  if(number === 1){
+   let stars = `<span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>`
+            return stars
+  }
+  if(number === 2){
+    let stars = `<span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star"></span>
+                 <span class="fa fa-star"></span>
+                 <span class="fa fa-star"></span>`
+    return stars
+   }
+   if(number === 3){
+    let stars = `<span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star"></span>
+                 <span class="fa fa-star"></span>`
+    return stars
+   }
+   if(number === 4){
+    let stars = `<span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star"></span>`
+    return stars
+   }
+   if(number === 5){
+    let stars = `<span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>`
+    return stars
+   }
+}
+function resetScore() {
+  stars.forEach(star => {
+    star.classList.remove("checked");
+  });
+}
+function highlightStars(numero) {
+  for (let i = 0; i < numero; i++) {
+    stars[i].classList.add("checked");
   }
 }
-function showProduct2(list){
-  console.log("acaaa", list)
-  const productContainer = `
-                            <p>${list.name}</p>
+function starsMouseOver(){
+  stars.forEach(star => {
+    star.addEventListener("mouseover", function() {
+      resetScore();
+      rating = parseInt(this.getAttribute("data-rating"));
+      highlightStars(rating);
+    });
+    star.addEventListener("click", function() {
+      rating = parseInt(this.getAttribute("data-rating"));
+    });
+  });
+}
+// segurancaaaaa
+function showComments(list){
+  const divCommentsContainer = document.createElement("div");
+  divCommentsContainer.id = "divCommentsContainer"
+  for(let comm of list){
+    let comment = `<div class = "commentDiv">
+                    <div><p>${comm.user}</p> <div>${fillStars(comm.score)}</div><span>${comm.dateTime}</span></div>
+                    <p>${comm.description}</p>
+                  </div>`
+    divCommentsContainer.innerHTML += comment;
+  }
+  containerDiv.insertAdjacentHTML("afterend",divCommentsContainer.outerHTML);
+}
+function showProduct(list){
+  const productContainer = `<div>
+                              <h3>${list.name}</h3>
+                              <p>Cat: ${list.category}</p>
+                            </div>
                             ${showCarousel(list)}
-                            <p>${list.currency} ${list.cost}</p>
-                            <p>${list.description}</p>
-                            <p>${list.category}</p>
-                            <p>${list.soldCount}</p>
+                            <div id="productDescription">
+                            <div>
+                            <p>Precio ${list.currency} ${list.cost}</p>
+                            <p>Vendidos: ${list.soldCount}</p>
+                            </div>
+                              <p>${list.description}</p>
+                            </div>
                           `
   containerDiv.innerHTML += productContainer
 }
@@ -152,22 +222,6 @@ function showCarousel(list){
   `
   return carousel
 }
-
-function showProduct(list){
-  const name = `<p>${list.name}</p>`
-  const descriptionProducto = document.createElement("p")
-  descriptionProducto.innerHTML += `${list.description}`
-  containerDiv.innerHTML += name
-  containerDiv.appendChild(descriptionProducto)
-}
-function renderizarImagenes(list){
-  let images = document.createElement("div")
-  for (let img of list.images){
-    images.innerHTML += `<img src="${img}" alt="un auto"></img>`
-  }
-  return images.outerHTML
-}
-// devuelve texto
 
 function showCarouselImages(list) {
   let carouselItems = '';

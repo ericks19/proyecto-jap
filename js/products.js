@@ -1,6 +1,5 @@
 const currentCatId = localStorage.getItem("catID");
 const URL = `https://japceibal.github.io/emercado-api/cats_products/${currentCatId}.json`;
-
 const containerList = document.getElementById("container-list");
 const inputMaximo = document.getElementById("filter-maximo");
 const inputMinimo = document.getElementById("filter-minimo");
@@ -14,6 +13,17 @@ selectSorter.addEventListener("input", () => makeList(addFilters(fetchData.produ
 searchButton.addEventListener("click", () => makeList(addFilters(fetchData.products)))
 filterButton.addEventListener("click", () => makeList(addFilters(fetchData.products)))
 
+async function fetchingData(url) {
+  try {
+      const response = await fetch(url); // Realiza la solicitud HTTP
+      fetchData = await response.json(); // Almacena los datos en la variable global
+      category(fetchData.catName);
+      makeList(fetchData.products);
+  } catch (error) {
+      // Maneja el error si algo sale mal
+      console.error('Error al cargar los productos:', error);
+  }
+}
 function makeList(productsList){
   containerList.innerHTML = ''; // Limpiar la lista antes de agregar nuevos productos
   for(let product of productsList){
@@ -102,17 +112,6 @@ function redirectToProductInfo(productId){
 function category (category){
     let categoryParagraph = document.getElementById("category-paragraph");
     categoryParagraph.innerHTML += `Categoria ${category} `;
-}
-async function fetchingData(url) {
-    try {
-        const response = await fetch(url); // Realiza la solicitud HTTP
-        fetchData = await response.json(); // Almacena los datos en la variable global
-        category(fetchData.catName);
-        makeList(fetchData.products);
-    } catch (error) {
-        // Maneja el error si algo sale mal
-        console.error('Error al cargar los productos:', error);
-    }
 }
 
 isLoggedOrNot();
