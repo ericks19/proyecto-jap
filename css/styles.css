@@ -397,10 +397,10 @@ button > img {
   overflow: hidden;
   white-space: normal; /* O 'break-spaces' */
 }
-img{
+/* img{
   width: 100%;
   border-radius: 10px;
-}
+} */
 #related-products {
   display: flex;
   flex-direction: column;
@@ -466,4 +466,119 @@ img{
   background-color: rgb(214, 214, 214);
   box-shadow: 5px 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+}
+
+/* ACA COMIENZANN LOS ESTILOS PARA MI CARRRRRIIIITOOOOOOOOOOOO */
+.bi-trash{
+  cursor: pointer;
+  font-size: 18px;
+  color: rgb(173, 4, 4);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Estilos específicos para dispositivos pequeños */
+@media only screen and (max-width: 600px) {
+  th, td {
+    padding: 4px;
+    font-size: 12px;
+  }
+}
+
+
+/* costos container              sadsdsdsdsds  */
+#costsContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2.9vw;
+}
+
+#costsContainer p{
+  margin-top: 13px;
+}
+#cartForm{
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#cartForm > div{
+  width: 320px;
+  min-height: 180px;
+  border: solid 1px rgb(233, 233, 233);
+  border-radius: 8px;
+  margin-top: 15px;
+  padding: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+#cartForm div > p{
+  margin-bottom: 0px;
+}
+#info-de-envio div{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+#info-de-envio div label{
+  margin-right: 10px;
+}
+#div-metodo-de-pago{
+  border: solid 1px rgb(233, 233, 233);
+  border-radius: 8px;
+  margin-top: 15px;
+  padding: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+#div-metodo-de-pago p{
+  display: inline-block;
+}
+#finalizar-compra {
+  margin-top: 20px;
+  margin-left: 40px;
+  width: 70%;
+}
+@media only screen and (min-width: 768px) {
+  #costsContainer{
+    width: 80%;
+    font-size: 20px;
+    margin: auto;
+  }
+  .table-container{
+    width: 80%;
+    border: solid 1px rgb(233, 233, 233);
+    border-radius: 10px;
+    padding: 0px 20px 15px 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+  }
+}
+
+                        /* estilos para modal carrito */
+.modal-body input{
+  margin-bottom: 15px;
+}
+.modal-inputs-texts{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.modal-inputs-texts input{
+  width: 80%;
+  border: 1px solid rgb(206, 206, 206)
+}
+.modal-footer{
+  display: flex;
+  justify-content: center;
+}
+.modal-footer button{
+  width: 50%;
 }

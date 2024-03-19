@@ -23,42 +23,72 @@ const inputDireccionEsquina = document.getElementById("esquina")
 let productsCartList = JSON.parse(localStorage.getItem("cartList"));
 let cartData;
 
+inputDireccionCalle.addEventListener("change", () => {
+  if(inputDireccionCalle.value && inputDireccionNumero.value && inputDireccionEsquina.value){
+    removeWarningParagraph("advertenciaDirEnvio")
+  }
+})
+inputDireccionNumero.addEventListener("change", () => {
+  if(inputDireccionCalle.value && inputDireccionNumero.value && inputDireccionEsquina.value){
+    removeWarningParagraph("advertenciaDirEnvio")
+  }
+})
+inputDireccionEsquina.addEventListener("change", () => {
+  if(inputDireccionCalle.value && inputDireccionNumero.value && inputDireccionEsquina.value){
+    removeWarningParagraph("advertenciaDirEnvio")
+  }
+})
 btnFinalizarCompra.addEventListener("click", (e) => {
   e.preventDefault();
   let sePuedeRealizarLaCompra = true
   if(!inputEnvioPrioritario.checked && !inputEnvioExpress.checked && !inputEnvioEstandar.checked){
-    showWarningMessage(divTipoEnvio, "seleccioname este (o envio)")
+    const paragraph = document.getElementById("tipoDeEnvio");
+    if(paragraph){
+      paragraph.remove()
+    }
+    const alertaTipoDeEnvio = document.createElement("p");
+    alertaTipoDeEnvio.id = "tipoDeEnvio"
+    alertaTipoDeEnvio.innerText = "Selecciona un tipo de envio"
+    divTipoEnvio.appendChild(alertaTipoDeEnvio)
     sePuedeRealizarLaCompra = false
+
   }if(!inputDireccionCalle.value || !inputDireccionNumero.value || !inputDireccionEsquina.value){
-    let advertenciaDrieccionEnvio = document.createElement("p")
-    advertenciaDrieccionEnvio.innerText = "Debes ingresar la direccion de envio completa"
-    divInfoEnvio.appendChild(advertenciaDrieccionEnvio)
+    const paragraph = document.getElementById("advertenciaDirEnvio")
+    if(paragraph){
+      paragraph.remove()
+    }
+    let advertenciaDireccionEnvio = document.createElement("p")
+    advertenciaDireccionEnvio.id = "advertenciaDirEnvio"
+    advertenciaDireccionEnvio.innerText = "Debes ingresar la direccion de envio completa"
+    divInfoEnvio.appendChild(advertenciaDireccionEnvio)
     sePuedeRealizarLaCompra = false
-    console.log("2")
   }if(!inputRadioTarjetaCredito.checked && !inputRadioTransferenciaBancaria.checked){
+    const paragraph = document.getElementById("advertenciaMetodoDePago")
+    if(paragraph){
+      paragraph.remove();
+    }
     let advertenciaFormaDePago = document.createElement("p")
+    advertenciaFormaDePago.id = "advertenciaMetodoDePago"
     advertenciaFormaDePago.innerText = "Debes elegir un metodo de pago cabeza"
     divMetodoDePago.appendChild(advertenciaFormaDePago)
     sePuedeRealizarLaCompra = false
-    console.log("3")
   }if(inputRadioTarjetaCredito.checked && (!inputTextNumeroTarjeta.value ||
     !inputTextCodigoSeguridad.value || !inputTextVencimiento.value)){
       let advertenciaTarjetaCreditoPago = document.createElement("p")
       advertenciaTarjetaCreditoPago.innerText = "Rellena la info de la tarjeta papa"
     divMetodoDePago.appendChild(advertenciaTarjetaCreditoPago)
     sePuedeRealizarLaCompra = false
-    console.log("4")
   }if(inputRadioTransferenciaBancaria.checked && (!inputTextNumeroCuenta.value)){
       let advertenciaTransferenciaBancaria = document.createElement("p")
       advertenciaTransferenciaBancaria.innerText = "Tas bien de vivo, pone el numero de cuenta"
     divMetodoDePago.appendChild(advertenciaTransferenciaBancaria)
     sePuedeRealizarLaCompra = false
-    console.log("5")
   }if(sePuedeRealizarLaCompra === true){
     alert("Sabpeeee, comprame esta")
   }
 })
 inputRadioTarjetaCredito.addEventListener("click", () => {
+  removeWarningParagraph("advertenciaMetodoDePago")
   metodoDePago.innerText = inputRadioTarjetaCredito.value
   inputTextNumeroCuenta.disabled = true
   inputTextNumeroTarjeta.disabled = false
@@ -66,6 +96,7 @@ inputRadioTarjetaCredito.addEventListener("click", () => {
   inputTextVencimiento.disabled = false
 })
 inputRadioTransferenciaBancaria.addEventListener("click", () => {
+  removeWarningParagraph("advertenciaMetodoDePago")
   metodoDePago.innerText = inputRadioTransferenciaBancaria.value
   inputTextNumeroTarjeta.disabled = true
   inputTextCodigoSeguridad.disabled = true
@@ -73,22 +104,25 @@ inputRadioTransferenciaBancaria.addEventListener("click", () => {
   inputTextNumeroCuenta.disabled = false
 })
 inputEnvioPrioritario.addEventListener("click", () => {
+  removeWarningParagraph("tipoDeEnvio")
   let subTotalnumber = parseInt(subTotalCarrito.innerText)
   let costoEnvio = subTotalnumber * 0.15
-  costoDeEnvio.innerText = Math.round(costoEnvio)
-  totalCarrito.innerText = costoEnvio + subTotalnumber
+  costoDeEnvio.innerText = Math.round(costoEnvio);
+  totalCarrito.innerText = Math.round(costoEnvio) + Math.round(subTotalnumber);
 })
 inputEnvioExpress.addEventListener("click", () => {
+  removeWarningParagraph("tipoDeEnvio")
   let subTotalnumber = parseInt(subTotalCarrito.innerText)
   let costoEnvio = subTotalnumber * 0.07
   costoDeEnvio.innerText = Math.round(costoEnvio)
-  totalCarrito.innerText = costoEnvio + subTotalnumber
+  totalCarrito.innerText = Math.round(costoEnvio) + Math.round(subTotalnumber)
 })
 inputEnvioEstandar.addEventListener("click", () => {
+  removeWarningParagraph("tipoDeEnvio")
   let subTotalnumber = parseInt(subTotalCarrito.innerText)
   let costoEnvio = subTotalnumber * 0.05
   costoDeEnvio.innerText = Math.round(costoEnvio)
-  totalCarrito.innerText = costoEnvio + subTotalnumber
+  totalCarrito.innerText = Math.round(costoEnvio) + Math.round(subTotalnumber)
 })
 
 isLoggedOrNot()
@@ -104,10 +138,11 @@ async function fetchingData (url){
   calcularSubtotalCarrito()
 }
 
-function showWarningMessage(contenedor, message){
-  let warningParagraph = document.createElement("p");
-  warningParagraph.innerText = message;
-  contenedor.appendChild(warningParagraph)
+function removeWarningParagraph(id){
+  const paragraph = document.getElementById(id);
+  if(paragraph){
+    paragraph.remove()
+  }
 }
 
 function verificarSeleccion() {
@@ -121,17 +156,22 @@ function verificarSeleccion() {
 }
 
 function calcularSubtotalCarrito(){
-  const rows = tbodyProductsCart.querySelectorAll("tbody tr");
   let subTotal = 0
+  const rows = tbodyProductsCart.querySelectorAll("tbody tr");
   rows.forEach(row => {
     const tds = row.querySelectorAll("td");
-    if (tds.length > 3) { // Asegurarse de que haya al menos 4 td en la fila
-      const tdValue = tds[4].innerText; // Capturar el valor del cuarto td (posición 3 en base a índices)
+    if (tds.length > 3) {
+      const tdValue = tds[4].innerText;
       const parts = tdValue.split(" ");
-      //const currency = parts[0]
+      const currency = parts[0]
       const numberString = parts[1];
-      const number = parseFloat(numberString);
-      subTotal += number
+      if(currency === "UYU"){
+        let number = Math.round(parseFloat(numberString / 40));
+        subTotal += number
+      }else{
+        let number = parseFloat(numberString);
+        subTotal += number
+      }
     }
   });
   subTotalCarrito.innerText = subTotal
@@ -174,6 +214,10 @@ function calculateSubtotal(amount, unitCost){
   return subTotal
 }
 
+function pesosADolares(amount){
+  return amount * 40
+}
+
 function renderCartList(list){
   let amount = 1;
   for( let i = 0; i < list.length; i++){
@@ -183,8 +227,8 @@ function renderCartList(list){
       <td>${list[i].name}</td>
       <td id="td-cost${list[i].id}">${list[i].currency} ${list[i].cost}</td>
       <td><input id="${list[i].id}" min="1" max="20" type="number" value="${amount}" maxlength="2"></td>
-      <td id="td-subtotal${list[i].id}"> ${list[i].currency}  ${calculateSubtotal(amount,list[i].cost)} </td>
-      <td><span class="delete-button">Eliminar</span></td>
+      <td id="td-subtotal${list[i].id}">${list[i].currency}  ${calculateSubtotal(amount,list[i].cost)}</td>
+      <td><span class="delete-button"><i class="bi bi-trash"></i></span></td>
     </tr>
     `;
     tbodyProductsCart.innerHTML += productCart;
@@ -199,8 +243,8 @@ function renderCart(list){
       <td>${item.name}</td>
       <td id="td-cost${item.id}">${item.currency} ${item.unitCost}</td>
       <td><input id="${item.id}" min="1" max="20" type="number" value="${item.count}" maxlength="2"></td>
-      <td id="td-subtotal${item.id}"> ${item.currency}  ${calculateSubtotal(item.count,item.unitCost)} </td>
-      <td><span class="delete-button">Eliminar</span></td>
+      <td id="td-subtotal${item.id}"> ${item.currency}  ${calculateSubtotal(item.count,item.unitCost)}</td>
+      <td><span class="delete-button"><i class="bi bi-trash"></i></span></td>
     </tr>
     `
     tbodyProductsCart.innerHTML += productCart

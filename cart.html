@@ -8,6 +8,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
@@ -42,7 +43,12 @@
     </div>
   </nav>
   <main>
-    <div>
+    <div id="costsContainer">
+      <p><span>Subtotal: ($) </span><span id="sub-total-carrito"></span></p>
+      <p><span>Costo de envio: ($) </span><span id="costo-de-envio">  --</span></p>
+      <p><span>Total($): </span><span id="total-carrito">  --</span></p>
+    </div>
+    <div class="table-container">
       <table>
         <thead>
           <tr>
@@ -57,7 +63,7 @@
         </tbody>
       </table>
     </div>
-    <form>
+    <form id="cartForm" class="d-flex">
       <div id="div-tipo-de-envio">
         <fieldset>
           <legend>Tipo de Envío:</legend>
@@ -90,59 +96,52 @@
           <input type="text" id="esquina" name="esquina">
         </div>
       </div>
+      <div id="div-metodo-de-pago">
+        <legend>Forma de Pago</legend>
+        <p id="metodo-de-pago">No ha seleccionado</p>
+        <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">seleccionar</a>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Forma de pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <input type="radio" id="tarjeta-credito" name="formaDePago" value= "Tarjeta de credito">
+                  <label for="tarjeta-credito">Tarjeta de credito</label>
+                </div>
+                <div class="modal-inputs-texts">
+                  <label for="numero-tarjeta">Numero de Tarjeta</label>
+                  <input type="text" id="numero-tarjeta" name="numeroTarjeta">
+                </div>
+                <div class="modal-inputs-texts">
+                  <label for="codigo-seguridad">Codigo de seguridad</label>
+                  <input type="text" id="codigo-seguridad" name="codigoSeguridad">
+                </div>
+                <div class="modal-inputs-texts">
+                  <label for="vencimiento">Vencimiento (MM/AA)</label>
+                  <input type="text" id="vencimiento" name="vencimiento">
+                </div>
+                <div>
+                  <input type="radio" id="transferencia-bancaria" name="formaDePago" value= "Transferencia Bancaria">
+                  <label for="transferencia-bancaria">Transferencia bancaria</label>
+                </div>
+                <div class="modal-inputs-texts">
+                  <label for="numero-de-cuenta">Numero de cuenta</label>
+                  <input type="text" id="numero-de-cuenta" name="numeroDeCuenta">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button id="finalizar-compra" class="btn btn-success">Comprar</button>
+      </div>
     </form>
-    <div>
-      <legend>Costos</legend>
-      <p><span>Subtotal</span><span id="sub-total-carrito"></span></p>
-      <p><span>Costo de envio</span><span id="costo-de-envio"></span></p>
-      <p><span>Total($)</span><span id="total-carrito"></span></p>
-    </div>
-    <div id="div-metodo-de-pago">
-      <legend>Forma de Pago</legend>
-      <p id="metodo-de-pago">No ha seleccionado</p>
-      <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">seleccionar</a>
-    </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Forma de pago</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div>
-          <input type="radio" id="tarjeta-credito" name="formaDePago" value= "Tarjeta de credito">
-          <label for="tarjeta-credito">Tarjeta de credito</label>
-        </div>
-        <div>
-          <label for="numero-tarjeta">Numero de Tarjeta</label>
-          <input type="text" id="numero-tarjeta" name="numeroTarjeta">
-        </div>
-        <div>
-          <label for="codigo-seguridad">Codigo de seguridad</label>
-          <input type="text" id="codigo-seguridad" name="codigoSeguridad">
-        </div>
-        <div>
-          <label for="vencimiento">Vencimiento (MM/AA)</label>
-          <input type="text" id="vencimiento" name="vencimiento">
-        </div>
-        <div>
-          <input type="radio" id="transferencia-bancaria" name="formaDePago" value= "Transferencia Bancaria">
-          <label for="transferencia-bancaria">Transferencia bancaria</label>
-        </div>
-        <div>
-          <label for="numero-de-cuenta">Numero de cuenta</label>
-          <input type="text" id="numero-de-cuenta" name="numeroDeCuenta">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<button id="finalizar-compra">Comprar</button>
   </main>
   <footer class="text-muted">
     <div class="container">
