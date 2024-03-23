@@ -46,15 +46,11 @@ nav a {
 
 .jumbotron {
   height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
   background-color: #53C0FB;
   background: url('../img/cover_back-768.png');
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  color: black;
-  font-weight: bold;
 }
 
 @media (min-width: 768px) {
@@ -460,16 +456,10 @@ img{
     width: 395px;
   }
   .jumbotron {
-    height: 50vh;
-    padding: 5em inherit;
-    margin-bottom: 0;
-    background-color: #53C0FB;
     background: url('../img/cover_back.png');
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    color: black;
-    font-weight: bold;
   }
 }
 #bigContainer {
@@ -508,16 +498,10 @@ th, td {
     font-size: 12px;
   }
   .jumbotron {
-    height: 50vh;
-    padding: 5em inherit;
-    margin-bottom: 0;
-    background-color: #53C0FB;
     background: url('../img/cover_back-first-half.png');
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    color: black;
-    font-weight: bold;
   }
 }
 
@@ -611,6 +595,55 @@ th, td {
 }
 
 /* ESTILO PARA MI PERFIL */
+.image-perfil-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.image-perfil-container legend{
+  font-size: 30px;
+}
 #profileImage{
-  width: 200px;
+  width: 140px;
+  border-radius: 30%;
+}
+
+.profile-form{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+.profile-form input{
+  margin-bottom: 8px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+}
+.profile-form button{
+  align-self: center;
+  width: 70%;
+  margin-top: 5px;
+}
+
+@media(min-width: 768px){
+  .profile-form{
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .div-input-text{
+    width: 50%;
+  }
+  .profile-form{
+    width: 75%;
+    background-color: #f7f5f5;
+  }
+}
+@media(min-width: 1024px){
+  .profile-form{
+    width: 60%;
+  }
+  .profile-form button{
+    width: 60%;
+  }
 }
