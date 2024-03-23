@@ -39,6 +39,9 @@ nav a {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
+  .jumbotron {
+    background: url('../img/cover_back-768.png');
+  }
 }
 
 .jumbotron {
@@ -46,8 +49,8 @@ nav a {
   padding: 5em inherit;
   margin-bottom: 0;
   background-color: #53C0FB;
-  background: url('../img/cover_back.png');
-  background-size: cover;
+  background: url('../img/cover_back-768.png');
+  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
   color: black;
@@ -201,7 +204,7 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
-/* a partir de este punto empeze a poner estilos para la lista de productos (por ahora autos) */
+/* a partir de este punto empeze a poner estilos para la lista de productos*/
 
 .pb-5 {
   display: flex;
@@ -293,6 +296,10 @@ button > img {
 }
 
 /* A PARTIR DE ESTE PUNTO ESTILOS PARA PRODUCT INFO */
+
+img{
+  width: 100%
+}
 
 .checked {
   color: orange;
@@ -395,12 +402,9 @@ button > img {
 }
 .commentDiv p {
   overflow: hidden;
-  white-space: normal; /* O 'break-spaces' */
+  white-space: normal;
 }
-/* img{
-  width: 100%;
-  border-radius: 10px;
-} */
+
 #related-products {
   display: flex;
   flex-direction: column;
@@ -422,9 +426,6 @@ button > img {
 }
 
 @media (min-width: 768px) {
-  /* body{
-    background-color: yellowgreen;
-  } */
   #product-container{
     align-self: center;
     width: 80%;
@@ -458,6 +459,18 @@ button > img {
   .commentDiv{
     width: 395px;
   }
+  .jumbotron {
+    height: 50vh;
+    padding: 5em inherit;
+    margin-bottom: 0;
+    background-color: #53C0FB;
+    background: url('../img/cover_back.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: black;
+    font-weight: bold;
+  }
 }
 #bigContainer {
   align-self: center;
@@ -474,7 +487,9 @@ button > img {
   font-size: 18px;
   color: rgb(173, 4, 4);
 }
-
+td img{
+  width: revert-layer;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -492,8 +507,19 @@ th, td {
     padding: 4px;
     font-size: 12px;
   }
+  .jumbotron {
+    height: 50vh;
+    padding: 5em inherit;
+    margin-bottom: 0;
+    background-color: #53C0FB;
+    background: url('../img/cover_back-first-half.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: black;
+    font-weight: bold;
+  }
 }
-
 
 /* costos container              sadsdsdsdsds  */
 #costsContainer{
@@ -573,7 +599,8 @@ th, td {
 }
 .modal-inputs-texts input{
   width: 80%;
-  border: 1px solid rgb(206, 206, 206)
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 3px;
 }
 .modal-footer{
   display: flex;
@@ -581,4 +608,9 @@ th, td {
 }
 .modal-footer button{
   width: 50%;
+}
+
+/* ESTILO PARA MI PERFIL */
+#profileImage{
+  width: 200px;
 }
